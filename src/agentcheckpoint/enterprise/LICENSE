@@ -1,0 +1,18 @@
+Business Source License 1.1
+
+License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
+"Business Source License" is a trademark of MariaDB Corporation Ab.
+
+Parameters
+
+Licensor: Harmin Software
+Licensed Work: AgentCheckpoint Enterprise Features (files in this directory)
+Additional Use Grant: You may use the Licensed Work for non-production purposes, including local development, testing, and evaluation. Production use requires a valid Enterprise License Key.
+Change Date: 4 years after the version's publication date.
+Change License: MIT License
+
+Terms
+
+The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work.
+
+Production use of the Licensed Work requires a valid Enterprise License Key from Harmin Software. Once the Change Date has passed, this license will automatically convert to the Change License (MIT).
