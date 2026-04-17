@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentcheckpoint"
+version = "0.1.0"
+description = "Transparent checkpoint & replay for AI agent workflows. Never lose a step."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "AgentCheckpoint Team" }]
+keywords = ["ai", "agent", "checkpoint", "replay", "crash-recovery", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.0",
+    "click>=8.0",
+]
+
+[project.optional-dependencies]
+s3 = ["boto3>=1.28"]
+postgres = ["psycopg[binary]>=3.1"]
+langchain = ["langchain-core>=0.2"]
+langgraph = ["langgraph>=0.2"]
+crewai = ["crewai>=0.40"]
+claude = ["anthropic>=0.30"]
+openai-agents = ["openai-agents>=0.1"]
+google-adk = ["google-adk>=0.1"]
+dashboard = ["fastapi>=0.110", "uvicorn[standard]>=0.29", "websockets>=12.0"]
+enterprise = ["cryptography>=42.0", "python-saml>=3.0", "pyjwt>=2.8"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "moto[s3]>=5.0",
+    "httpx>=0.27",
+    "ruff>=0.4",
+]
+all = [
+    "agentcheckpoint[s3,postgres,langchain,langgraph,crewai,claude,openai-agents,google-adk,dashboard,enterprise]",
+]
+
+[project.scripts]
+agentcheckpoint = "agentcheckpoint.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/agentcheckpoint/agentcheckpoint"
+Documentation = "https://agentcheckpoint.dev/docs"
+Repository = "https://github.com/agentcheckpoint/agentcheckpoint"
+Issues = "https://github.com/agentcheckpoint/agentcheckpoint/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentcheckpoint"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
