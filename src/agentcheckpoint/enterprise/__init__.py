@@ -73,3 +73,26 @@ def reset_license() -> None:
     """Reset cached license (useful for testing)."""
     global _license
     _license = None
+
+from .audit import AuditLogger
+from .auto_resume import AutoResumeEngine, ResumePolicy
+from .sso import EnterpriseSSO, SSOConfig
+from .rbac import RBACEngine, Role, Action
+from .telemetry import TelemetryEngine, TelemetryEvent
+
+__all__ = [
+    "require_enterprise",
+    "LicenseError",
+    "LicenseInfo",
+    "reset_license",
+    "AuditLogger",
+    "AutoResumeEngine",
+    "ResumePolicy",
+    "EnterpriseSSO",
+    "SSOConfig",
+    "RBACEngine",
+    "Role",
+    "Action",
+    "TelemetryEngine",
+    "TelemetryEvent",
+]
