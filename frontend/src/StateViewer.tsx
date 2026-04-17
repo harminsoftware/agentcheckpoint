@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { AgentState, DiffResult } from './types';
 import { useApi } from './api';
-import { AlertCircle, Bot, Code, Database, Info, MessageSquare, Play } from 'lucide-react';
+import { AlertCircle, Bot, Code, Database, Info, MessageSquare, Play, BarChart2, Edit3, Lock } from 'lucide-react';
 
 interface Props {
   runId: string;
@@ -14,7 +14,7 @@ export function StateViewer({ runId, stepNumber, prevStepNumber }: Props) {
   const [state, setState] = useState<AgentState | null>(null);
   const [diff, setDiff] = useState<DiffResult | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'messages' | 'tools' | 'variables' | 'diff'>('messages');
+  const [activeTab, setActiveTab] = useState<'messages' | 'tools' | 'variables' | 'diff' | 'analytics' | 'intervene'>('messages');
 
   useEffect(() => {
     let mounted = true;
@@ -82,6 +82,18 @@ export function StateViewer({ runId, stepNumber, prevStepNumber }: Props) {
             <Bot size={16} /> State Changes
           </button>
         )}
+        <button 
+          className={`tab-btn flex items-center gap-2 ${activeTab === 'analytics' ? 'active' : ''}`}
+          onClick={() => setActiveTab('analytics')}
+        >
+          <BarChart2 size={16} /> Analytics <span className="pro-badge">Pro</span>
+        </button>
+        <button 
+          className={`tab-btn flex items-center gap-2 ${activeTab === 'intervene' ? 'active' : ''}`}
+          onClick={() => setActiveTab('intervene')}
+        >
+          <Edit3 size={16} /> Intervene <span className="pro-badge">Pro</span>
+        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto" style={{ padding: '1.5rem' }}>
@@ -202,6 +214,22 @@ export function StateViewer({ runId, stepNumber, prevStepNumber }: Props) {
                 ))}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Enterprise Paywall Area */}
+        {(activeTab === 'analytics' || activeTab === 'intervene') && (
+          <div className="premium-paywall glass-panel">
+            <Lock size={48} color="#F59E0B" style={{ marginBottom: '1rem' }} />
+            <h2>Enterprise Feature</h2>
+            <p className="text-gray" style={{ maxWidth: '400px', marginTop: '1rem' }}>
+              {activeTab === 'analytics' 
+                ? "Unlock token tracking, cost analysis, success rate monitoring, and latency heatmaps across all your agents." 
+                : "Unlock the ability to edit variables, inject custom prompt messages, and seamlessly resume crashed agents mid-flight."}
+            </p>
+            <button className="btn-premium" onClick={() => window.open('https://harminsoftware.com/enterprise', '_blank')}>
+              Upgrade to Enterprise
+            </button>
           </div>
         )}
       </div>
