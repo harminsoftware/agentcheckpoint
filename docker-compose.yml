@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8585:8585"
+    volumes:
+      - agent_data:/data/checkpoints
+    environment:
+      # Use local disk by default for easy demo, but can switch to postgres
+      - AGENTCHECKPOINT_STORAGE_PATH=/data/checkpoints
+      - AGENTCHECKPOINT_TELEMETRY=false
+      #- AGENTCHECKPOINT_LICENSE_KEY=your_key_here
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Optional Postgres Database for production storage
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: checkpoint
+      POSTGRES_DB: agentdb
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    profiles: ["production"]
+
+volumes:
+  agent_data:
+  pg_data:

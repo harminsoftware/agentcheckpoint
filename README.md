@@ -167,14 +167,24 @@ export AGENTCHECKPOINT_LICENSE_KEY=<your-key>
 
 See [PRIVACY.md](PRIVACY.md) for details.
 
-## 📦 Installation Options
+## 📦 Installation & Deployment Options
 
+**Local Python environment (Core SDK usage):**
 ```bash
 pip install agentcheckpoint                          # Core only
 pip install agentcheckpoint[langchain]               # + LangChain
 pip install agentcheckpoint[s3,dashboard]             # + S3 + Dashboard
 pip install agentcheckpoint[all]                      # Everything
 ```
+
+**Self-Hosted Enterprise Deployment (Docker Compose):**
+The easiest way to stand up the Replay Dashboard and PostgreSQL database is via Docker.
+```bash
+git clone https://github.com/harminsoftware/agentcheckpoint.git
+cd agentcheckpoint
+docker-compose up -d
+```
+The React dashboard will be instantly available at `http://localhost:3000`.
 
 ## License
 
